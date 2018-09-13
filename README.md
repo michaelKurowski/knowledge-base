@@ -4,6 +4,7 @@ You can store your newly earned knowledge and links and assign tags to these ent
 Later when you want to retrieve the information you can just query to db of your entries.
 
 # Usage
+ The main command is called `knowledge-base` but you can also use `kb` alias.
  - **Add new entry** WIP
     - `kb --entry "Put not here"` or `kb -e "Put note here"`
     KB then will ask you for categories. You can specify them by putting words separated by spaces:
