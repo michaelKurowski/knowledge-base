@@ -3,8 +3,8 @@ const ARGUMENTS = require('./argumentsMap')
 const ARGUMENTS_OFFSET = 2
 
 const argumentsMap = new Map([
-    ['-a', ARGUMENTS.ADD_ENTRY],
-    ['--add', ARGUMENTS.ADD_ENTRY],
+    ['-e', ARGUMENTS.ADD_ENTRY],
+    ['--entry', ARGUMENTS.ADD_ENTRY],
     ['-c', ARGUMENTS.ADD_CATEGORY],
     ['--c', ARGUMENTS.ADD_CATEGORY]
 ])

@@ -12,8 +12,8 @@ function loadDatabase(databaseToLoad) {
     database = databaseToLoad
 }
 
-function addEntry() {
-
+function addEntry(entryObject) {
+    database.entries.push(entryObject)
 }
 
 function addCategory(categoryName) {

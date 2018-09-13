@@ -24,7 +24,7 @@ function findConflictingCategories(listOfCategories) {
         .filter(databaseDriver.hasCategory)
 }
 
-function checkCategoriesForConflicts(listOfCategories) {
+function checkCategoriesForConflicts() {
 
     const conflictingCategories = findConflictingCategories(listOfCategories)
     if (!!conflictingCategories.length) {
@@ -52,6 +52,11 @@ async function handleAddEntryPayload(payload) {
 
     const stringifiedListOfCategories = await createQuestion('What categories do you want to assign?')
     const listOfCategories = parseUserProvidedList(stringifiedListOfCategories)
+    const existingCategories = findConflictingCategories(listOfCategories)
+    if (existingCategories.length !== listOfCategories.length) {
+        const nonExistingCategories = listOfCategories.filter(category => existingCategories.indexOf(category) === -1)
+        throw `Some of categories that you wanted to use, do not exist: ${JSON.stringify(nonExistingCategories)}`
+    }
     newEntryInfo.categories = listOfCategories
 
     const stringifiedListOfTags = await createQuestion('What tags do you want to assign?')
