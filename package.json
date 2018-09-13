@@ -1,0 +1,30 @@
+{
+  "name": "knowledge-base",
+  "version": "1.0.0",
+  "description": "A CLI that let\\'s you store your knowledge in manageable way",
+  "main": "index.js",
+  "bin": {
+    "kb": "./index.js",
+    "knowledge-base": "./index.js"
+  },
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michaelKurowski/knowledge-base.git"
+  },
+  "keywords": [
+    "knowledge",
+    "base",
+    "cli",
+    "store",
+    "manageable"
+  ],
+  "author": "Michael Kurowski",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/michaelKurowski/knowledge-base/issues"
+  },
+  "homepage": "https://github.com/michaelKurowski/knowledge-base#readme"
+}
