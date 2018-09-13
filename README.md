@@ -24,9 +24,9 @@ Later when you want to retrieve the information you can just query to db of your
         3. Keywords
  - **Edit category** WIP
     - `kb --edit-category CategoryName` or `kb -ec CategoryName`. You'll be then prompted to entry new category name. 
- - **Delete entry**
+ - **Delete entry** WIP
     - `kb --delete-entry ID` or `kb -de ID`
- - **Delete category**
+ - **Delete category** WIP
     - `kb --delete-category CategoryName` or `kb -dc CategoryName` 
 
 # Examples
@@ -46,10 +46,10 @@ or
 
 # Instalation
 There are 2 quickiest ways to install the package
-**From npm:**
-`npm install name-in-npm-repository -g`
-**From git**
-`npm install https://url.to/this/repository -g`
+
+**From npm: ** `npm install name-in-npm-repository -g`
+
+**From git:** `npm install https://url.to/this/repository -g`
 
 
 # Roadmap
