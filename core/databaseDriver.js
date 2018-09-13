@@ -1,6 +1,6 @@
 let database = {}
 
-function showDatabase() {
+function getDatabase() {
     return database
 }
 
@@ -24,4 +24,4 @@ function hasCategory(categoryName) {
     return !!Object.keys(database.categories).find(iteratedCategory => iteratedCategory === categoryName)
 }
 
-module.exports = {showDatabase, query, loadDatabase, addEntry, addCategory, hasCategory}
+module.exports = {getDatabase, query, loadDatabase, addEntry, addCategory, hasCategory}

@@ -1,4 +1,5 @@
 const util = require('util')
+const fs = require('fs')
 
 const initializeDatabase = require('./core/initializeDatabase')
 const databaseDriver = require('./core/databaseDriver')
@@ -18,6 +19,8 @@ console.log('process.argv', process.argv)
 const optionsObject = getOptionsFromArguments(process.argv)
 handleArguments(optionsObject)
     .then(() => {
-        console.log(util.inspect(databaseDriver.showDatabase()))
+        const formattedDb = util.inspect(databaseDriver.getDatabase())
+        console.log(formattedDb)
+        fs.writeFileSync('./database.json', JSON.stringify(databaseDriver.getDatabase()))
         process.exit()
     })
