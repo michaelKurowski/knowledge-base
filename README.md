@@ -11,8 +11,8 @@ Later when you want to retrieve the information you can just query to db of your
     `Links Tutorials`.
     KB then ask you for query keywords that will help to find it later
     `JavaScript TypeScript WebDevelopment`
- - **Add new tag(s)** WIP
-    `kb --category "PutNameOfTagHere PutSecondNewTagHere"` or `kb -c "PutNameOfTagHere PutSecondNewTagHere"`
+ - **Add new category(ies)** WIP
+    `kb --category "PutNameOfCategoryHere PutSecondNewCategoryHere"` or `kb -c "PutNameOfCategoryHere PutSecondNewCategoryHere"`
  - **List all entries by category name** WIP
     - `kb --list "CategoryOne CategoryTwo"` or `kb -l CategoryOne CategoryTwo`
  - **Query your knowledge database** WIP
