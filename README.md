@@ -47,7 +47,7 @@ or
 # Instalation
 There are 2 quickiest ways to install the package
 
-**From npm: ** `npm install name-in-npm-repository -g`
+**From npm:** `npm install name-in-npm-repository -g`
 
 **From git:** `npm install https://url.to/this/repository -g`
 
