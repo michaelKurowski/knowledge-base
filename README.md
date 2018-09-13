@@ -28,6 +28,7 @@ Later when you want to retrieve the information you can just query to db of your
  - **Delete category**
     - `kb --delete-category CategoryName` or `kb -dc CategoryName` 
 
+
 #Examples
 Let's say that I want to save an url to some cool Gimp tutorials.
 1. I add new tags to my kb:
@@ -43,12 +44,14 @@ Kb asks me to choose tags that I might later use to find that information:
 or 
 `kb --query painting a cat` 
 
+
 #Instalation
 There are 2 quickiest ways to install the package
 **From npm:**
 `npm install name-in-npm-repository -g`
 **From git**
 `npm install https://url.to/this/repository -g`
+
 
 # Roadmap
  - [ ] Functionality described in this README
