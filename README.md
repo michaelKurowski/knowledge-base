@@ -26,7 +26,7 @@ Later when you want to retrieve the information you can just query to db of your
  - **Delete entry**
     - `kb --delete-entry ID` or `kb -de ID`
  - **Delete category**
-    - `kb --delete-category CategoryName` or `kb -dc CategoryName`
+    - `kb --delete-category CategoryName` or `kb -dc CategoryName` 
 
 #Examples
 Let's say that I want to save an url to some cool Gimp tutorials.
@@ -41,7 +41,7 @@ Kb asks me to choose tags that I might later use to find that information:
 3. I want to find my entry back:
 `kb --query how to paint a cat`
 or 
-`kb --query painting a cat`
+`kb --query painting a cat` 
 
 #Instalation
 There are 2 quickiest ways to install the package
@@ -53,4 +53,5 @@ There are 2 quickiest ways to install the package
 # Roadmap
  - [ ] Functionality described in this README
  - [ ] Autocomplete for tags
+ - [ ] Add ability to store knowledge online
 
