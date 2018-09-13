@@ -3,7 +3,7 @@ This is a NodeJS app, that helps to save useful information during your life.
 You can store your newly earned knowledge and links and assign tags to these entries.
 Later when you want to retrieve the information you can just query to db of your entries.
 
-#Usage
+# Usage
  - **Add new entry** WIP
     - `kb --entry "Put not here"` or `kb -e "Put note here"`
     KB then will ask you for categories. You can specify them by putting words separated by spaces:
