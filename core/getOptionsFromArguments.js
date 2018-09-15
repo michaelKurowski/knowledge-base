@@ -8,7 +8,9 @@ const argumentsMap = new Map([
     ['-c', ARGUMENTS.ADD_CATEGORY],
     ['--c', ARGUMENTS.ADD_CATEGORY],
     ['-l', ARGUMENTS.LIST_BY_CATEGORY],
-    ['--list', ARGUMENTS.LIST_BY_CATEGORY]
+    ['--list', ARGUMENTS.LIST_BY_CATEGORY],
+    ['-q', ARGUMENTS.QUERY],
+    ['--query', ARGUMENTS.QUERY]
 ])
 
 function getOptionsFromArguments(processArguments) {

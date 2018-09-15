@@ -25,13 +25,17 @@ function findConflictingCategories(listOfCategories) {
 }
 
 function checkCategoriesForConflicts(listOfCategories) {
-
     const conflictingCategories = findConflictingCategories(listOfCategories)
     if (!!conflictingCategories.length) {
         throw `Some of these categories already exist: ${conflictingCategories}`
     }
     return listOfCategories
+}
 
+async function handleQuery(stringifiedListOfKeywords) {
+    const listOfKeywords = stringifiedListOfKeywords.split(' ')
+    const results = databaseDriver.query(listOfKeywords)
+    results.forEach(result => console.log(result.entry.content, result.score))
 }
 
 async function handleAddCategoriesPayload(stringifiedListOfCategories) {
@@ -86,6 +90,8 @@ function handleArguments({argument, payload}) {
             return handleAddCategoriesPayload(payload)
         case ARGUMENTS.LIST_BY_CATEGORY:
             return handleListByCategory(payload)
+        case ARGUMENTS.QUERY:
+            return handleQuery(payload)
         default:
             throw `Unhandled category: ${argument} with payload: ${payload}`
     }
