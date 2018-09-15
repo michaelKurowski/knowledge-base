@@ -16,8 +16,9 @@ Master branch is only for well engineered version.
     `Links Tutorials`.
     KB then ask you for query keywords that will help to find it later
     `JavaScript TypeScript WebDevelopment`
- - **Add new category(ies)** WIP
-    `kb --category "PutNameOfCategoryHere PutSecondNewCategoryHere"` or `kb -c "PutNameOfCategoryHere PutSecondNewCategoryHere"`
+ - **Add new category** WIP
+    `kb --category "PutNameOfCategoryHere"` or `kb -c "PutNameOfCategoryHere"`
+    KB then will ask for aliases for your new categories so they'll be easier to access.
  - **List all entries by category name** WIP
     - `kb --list "CategoryOne CategoryTwo"` or `kb -l CategoryOne CategoryTwo`
  - **Query your knowledge database** WIP
@@ -28,7 +29,7 @@ Master branch is only for well engineered version.
         2. Categories
         3. Keywords
  - **Edit category** WIP
-    - `kb --edit-category CategoryName` or `kb -ec CategoryName`. You'll be then prompted to entry new category name. 
+    - `kb --edit-category CategoryName` or `kb -ec CategoryName`. You'll be then prompted to entry new category key and aliases.
  - **Delete entry** WIP
     - `kb --delete-entry ID` or `kb -de ID`
  - **Delete category** WIP
@@ -37,17 +38,18 @@ Master branch is only for well engineered version.
 # Examples
 Let's say that I want to save an url to some cool Gimp tutorials.
 1. I add new tags to my kb:
-`kb --category Links Gimp Tutorials`
+`kb --category JavaScript`
+KB asks me to choose aliases for my new category:
+`JS EcmaScript ES`
 2. I add a new entry:
 `kb --entry "https://somePlatform/sometutorial/blahblahblah"`
 Kb asks me to choose categories:
-`Links Gimp Tutorials`
+`js`
 Kb asks me to choose tags that I might later use to find that information:
-`how to paint cat animal painting`
+`understanding promises`
 3. I want to find my entry back:
-`kb --query how to paint a cat`
-or 
-`kb --query painting a cat` 
+`kb --query js promises`
+Query is rather intelligent and will take into account categories and their aliases, entry content and tags.
 
 # Instalation
 There are 2 quickiest ways to install the package
