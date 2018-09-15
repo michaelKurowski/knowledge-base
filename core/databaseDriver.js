@@ -84,6 +84,13 @@ function getCategoryByName(wantedCategoryName) {
     return database.categories.find(category => category === wantedCategoryName )
 }
 
+function deleteEntryById(id) {
+    const databaseAfterOperation = database.entries.filter(entry => entry.id !== id)
+    if (databaseAfterOperation.length === database.entries.length)
+        throw `There's no entry with ID ${id}`
+    database.entries = databaseAfterOperation
+}
+
 module.exports = {
     getDatabase,
     query,
@@ -93,5 +100,6 @@ module.exports = {
     hasCategory,
     filterByCategory,
     getEntryById,
-    getCategoryByName
+    getCategoryByName,
+    deleteEntryById
 }

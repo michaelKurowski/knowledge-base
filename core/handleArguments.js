@@ -115,6 +115,12 @@ async function handleEditEntryPayload(payload) {
     printEntry(entry)
 }
 
+async function handleEntryDeletion(payload) {
+    const id = parseInt(payload)
+    databaseDriver.deleteEntryById(id)
+    console.log('Entry deleted!')
+}
+
 function handleArguments({argument, payload}) {
     console.log('handle arguments')
     switch (argument) {
@@ -128,6 +134,8 @@ function handleArguments({argument, payload}) {
             return handleQuery(payload)
         case ARGUMENTS.EDIT_ENTRY:
             return handleEditEntryPayload(payload)
+        case ARGUMENTS.DELETE_ENTRY:
+            return handleEntryDeletion(payload)
         default:
             throw `Unhandled category: ${argument} with payload: ${payload}`
     }
