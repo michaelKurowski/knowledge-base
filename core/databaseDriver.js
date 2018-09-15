@@ -8,6 +8,11 @@ function query() {
 
 }
 
+function filterByCategory(category) {
+    return database.entries.filter(entry => 
+        entry.categories.indexOf(category) !== -1)
+}
+
 function loadDatabase(databaseToLoad) {
     database = databaseToLoad
 }
@@ -21,7 +26,7 @@ function addCategory(categoryName) {
 }
 
 function hasCategory(categoryName) {
-    return !!Object.keys(database.categories).find(iteratedCategory => iteratedCategory === categoryName)
+    return !!database.categories.find(iteratedCategory => iteratedCategory === categoryName)
 }
 
-module.exports = {getDatabase, query, loadDatabase, addEntry, addCategory, hasCategory}
+module.exports = {getDatabase, query, loadDatabase, addEntry, addCategory, hasCategory, filterByCategory}

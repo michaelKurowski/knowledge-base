@@ -11,7 +11,7 @@ const readlineInterface = readline.createInterface({
 
 function createQuestion(questionText) {
     return new Promise(resolve => {
-        readlineInterface.question(questionText, resolve)
+        readlineInterface.question(`${questionText}\n`, resolve)
     })
 }
 
@@ -24,7 +24,7 @@ function findConflictingCategories(listOfCategories) {
         .filter(databaseDriver.hasCategory)
 }
 
-function checkCategoriesForConflicts() {
+function checkCategoriesForConflicts(listOfCategories) {
 
     const conflictingCategories = findConflictingCategories(listOfCategories)
     if (!!conflictingCategories.length) {
@@ -43,6 +43,13 @@ async function handleAddCategoriesPayload(stringifiedListOfCategories) {
     return Promise.resolve()
 }
 
+async function handleListByCategory(categoryName) {
+    const isCategoryExisting = findConflictingCategories([categoryName]).length === 1
+    if (!isCategoryExisting) throw `${categoryName} is not created yet.`
+    const matchingResults = databaseDriver.filterByCategory(categoryName)
+    matchingResults.forEach(entry => console.log(entry.content))
+}
+
 async function handleAddEntryPayload(payload) {
     const newEntryInfo = {
         categories: null,
@@ -54,6 +61,7 @@ async function handleAddEntryPayload(payload) {
     const listOfCategories = parseUserProvidedList(stringifiedListOfCategories)
     const existingCategories = findConflictingCategories(listOfCategories)
     if (existingCategories.length !== listOfCategories.length) {
+        console.log(existingCategories, listOfCategories)
         const nonExistingCategories = listOfCategories.filter(category => existingCategories.indexOf(category) === -1)
         throw `Some of categories that you wanted to use, do not exist: ${JSON.stringify(nonExistingCategories)}`
     }
@@ -76,6 +84,8 @@ function handleArguments({argument, payload}) {
             return handleAddEntryPayload(payload)
         case ARGUMENTS.ADD_CATEGORY:
             return handleAddCategoriesPayload(payload)
+        case ARGUMENTS.LIST_BY_CATEGORY:
+            return handleListByCategory(payload)
         default:
             throw `Unhandled category: ${argument} with payload: ${payload}`
     }

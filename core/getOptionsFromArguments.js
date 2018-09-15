@@ -6,7 +6,9 @@ const argumentsMap = new Map([
     ['-e', ARGUMENTS.ADD_ENTRY],
     ['--entry', ARGUMENTS.ADD_ENTRY],
     ['-c', ARGUMENTS.ADD_CATEGORY],
-    ['--c', ARGUMENTS.ADD_CATEGORY]
+    ['--c', ARGUMENTS.ADD_CATEGORY],
+    ['-l', ARGUMENTS.LIST_BY_CATEGORY],
+    ['--list', ARGUMENTS.LIST_BY_CATEGORY]
 ])
 
 function getOptionsFromArguments(processArguments) {

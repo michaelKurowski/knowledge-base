@@ -20,7 +20,7 @@ const optionsObject = getOptionsFromArguments(process.argv)
 handleArguments(optionsObject)
     .then(() => {
         const formattedDb = util.inspect(databaseDriver.getDatabase())
-        console.log(formattedDb)
+        //console.log(formattedDb)
         fs.writeFileSync('./database.json', JSON.stringify(databaseDriver.getDatabase()))
         process.exit()
     })
