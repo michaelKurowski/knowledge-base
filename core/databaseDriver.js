@@ -35,12 +35,13 @@ function getDatabase() {
 }
 
 function query(keywordsList) {
-    const results = database.entries.map(entry => {
+    const entriesWithCalculatedMatchScore = database.entries.map(entry => {
         const newQueryResult = Object.create(QUERY_RESULT_SCHEMA)
         newQueryResult.entry = entry
         newQueryResult.score = calculateScore(entry, keywordsList)
         return newQueryResult
     })
+    const results = entriesWithCalculatedMatchScore.filter(result => result.score !== 0)
     const sortedResults = results.sort((queryResultA, queryResultB) => queryResultB.score - queryResultA.score)
     return sortedResults
 }
