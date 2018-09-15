@@ -49,11 +49,14 @@ async function handleQuery(stringifiedListOfKeywords) {
     results.forEach(result => {printEntry(result.entry), console.log(result.score)})
 }
 
-async function handleAddCategoriesPayload(stringifiedListOfCategories) {
+async function handleAddCategoryPayload(categoryKey) {
     console.log('handleAddCategories')
-    const listOfCategories = parseUserProvidedList(stringifiedListOfCategories)
-    checkCategoriesForConflicts(listOfCategories)
-    listOfCategories.forEach(databaseDriver.addCategory.bind(databaseDriver))
+    const stringifiedListOfCategoryAliases = await createQuestion(
+        'What should be aliases for the category?'
+    )
+    const listOfAliases = stringifiedListOfCategoryAliases.split(' ')
+    checkCategoriesForConflicts([categoryKey, ...listOfAliases])
+    databaseDriver.addCategory({key: categoryKey, aliases: listOfAliases})
     console.log('added')
     return Promise.resolve()
 }
@@ -105,7 +108,7 @@ async function handleEditEntryPayload(payload) {
         const nonExistingCategories = findNonExistingCategories(categoriesList)
         if (nonExistingCategories.length !== 0)
             throw `Some of categories you typed are nonexisting: ${nonExistingCategories}`
-        entry.categories = newCategories
+        entry.categories = categoriesList.map(databaseDriver.mapCategoryFormToKey)
     }
 
     entry.tags = newTags || entry.tags
@@ -127,7 +130,7 @@ function handleArguments({argument, payload}) {
         case ARGUMENTS.ADD_ENTRY:
             return handleAddEntryPayload(payload)
         case ARGUMENTS.ADD_CATEGORY:
-            return handleAddCategoriesPayload(payload)
+            return handleAddCategoryPayload(payload)
         case ARGUMENTS.LIST_BY_CATEGORY:
             return handleListByCategory(payload)
         case ARGUMENTS.QUERY:

@@ -14,10 +14,14 @@ function compareStringsWithoutCaseSensitivity(stringA, stringB) {
 function calculateScoreForCategories(entry, queryKeywords) {
     return entry.categories.reduce((entryTotalScore, category) => 
         entryTotalScore + queryKeywords.reduce((categoryTotalScore, keyword) => 
-            categoryTotalScore + compareStringsWithoutCaseSensitivity(category, keyword)
+            categoryTotalScore + 
+            findAllCategoryForms(category).reduce((categoryFormTotalScore, categoryForm) => 
+                categoryFormTotalScore + compareStringsWithoutCaseSensitivity(categoryForm, keyword)
+            , 0)
         , 0) / queryKeywords.length
     , 0) / entry.categories.length
 }
+
 
 function calculateScoreForTags(entry, queryKeywords) {
     return entry.tags.reduce((entryTotalScore, tag) => 
@@ -55,9 +59,15 @@ function query(keywordsList) {
     return sortedResults
 }
 
-function filterByCategory(category) {
+function filterByCategory(categoryForm) {
+    const matchedCategory = database.categories.find(categoryObject => 
+        matchCategory(categoryForm, categoryObject)
+    )
+    if (!matchedCategory) `Throw no corresponding category found to ${categoryForm}`
+    console.log(matchedCategory)
     return database.entries.filter(entry => 
-        entry.categories.indexOf(category) !== -1)
+        entry.categories.find(entryCategory => entryCategory.toUpperCase() === matchedCategory.key.toUpperCase())
+    )
 }
 
 function loadDatabase(databaseToLoad) {
@@ -68,12 +78,12 @@ function addEntry(entryObject) {
     database.entries.push(entryObject)
 }
 
-function addCategory(categoryName) {
-    database.categories.push(categoryName)
+function addCategory(categoryObject) {
+    database.categories.push(categoryObject)
 }
 
 function hasCategory(categoryName) {
-    return !!database.categories.find(iteratedCategory => iteratedCategory === categoryName)
+    return !!database.categories.find(iteratedCategory => matchCategory(categoryName, iteratedCategory))
 }
 
 function getEntryById(id) {
@@ -81,7 +91,7 @@ function getEntryById(id) {
 }
 
 function getCategoryByName(wantedCategoryName) {
-    return database.categories.find(category => category === wantedCategoryName )
+    return database.categories.find(category => matchCategory(wantedCategoryName, category) )
 }
 
 function deleteEntryById(id) {
@@ -89,6 +99,28 @@ function deleteEntryById(id) {
     if (databaseAfterOperation.length === database.entries.length)
         throw `There's no entry with ID ${id}`
     database.entries = databaseAfterOperation
+}
+
+function mapCategoryFormToKey(categoryForm) {
+    return database.categories.find(categoryObject => 
+        matchCategory(categoryForm, categoryObject)).key
+    
+}
+
+function findAllCategoryForms(categoryForm) {
+    const foundCategoryObject = database.categories.find(categoryObject => 
+        matchCategory(categoryForm, categoryObject)
+    )
+    return [foundCategoryObject.key, ...foundCategoryObject.aliases]
+}
+
+function matchCategory(query, category) {
+    const normalizedQuery = query.toUpperCase()
+    const normalizedCategoryKey = category.key.toUpperCase()
+    const normalizedCategoryAliases = category.aliases.map(alias => alias.toUpperCase())
+    return [normalizedCategoryKey, ...normalizedCategoryAliases].find(categoryForm =>
+        categoryForm === normalizedQuery
+    )
 }
 
 module.exports = {
@@ -101,5 +133,6 @@ module.exports = {
     filterByCategory,
     getEntryById,
     getCategoryByName,
-    deleteEntryById
+    deleteEntryById,
+    mapCategoryFormToKey
 }
