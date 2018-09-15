@@ -48,7 +48,7 @@ Kb asks me to choose categories:
 Kb asks me to choose tags that I might later use to find that information:
 `understanding promises`
 3. I want to find my entry back:
-`kb --query :js promises"`
+`kb --query "js promises"`
 Query is rather intelligent and will take into account categories and their aliases, entry content and tags.
 
 # Instalation
