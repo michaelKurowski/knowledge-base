@@ -16,7 +16,9 @@ const argumentsMap = new Map([
     ['-ec', ARGUMENTS.EDIT_CATEGORY],
     ['--edit-category', ARGUMENTS.EDIT_CATEGORY],
     ['-de', ARGUMENTS.DELETE_ENTRY],
-    ['--delete-entry', ARGUMENTS.DELETE_ENTRY]
+    ['--delete-entry', ARGUMENTS.DELETE_ENTRY],
+    ['-dc', ARGUMENTS.DELETE_CATEGORY],
+    ['--delete-category', ARGUMENTS.DELETE_CATEGORY]
 ])
 
 function getOptionsFromArguments(processArguments) {

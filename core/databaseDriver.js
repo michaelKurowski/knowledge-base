@@ -101,6 +101,34 @@ function deleteEntryById(id) {
     database.entries = databaseAfterOperation
 }
 
+function deleteCategoryByKey(categoryKeyToDelete) {
+    const databaseAfterOperation = database.categories.filter(category => category.key !== categoryKeyToDelete)
+    if (databaseAfterOperation.length === database.categories.length)
+        throw `There's no category with key ${key}`
+    database.categories = databaseAfterOperation
+    clearEntriesFromNonexistingCategories()
+}
+
+function clearEntriesFromNonexistingCategories() {
+    let entriesIdsToDelete = []
+    const databaseAfterOperation = database.entries.map(entry => {
+        const existingCategories = entry.categories.filter(entryCategoryKey => {
+            return !!database.categories.find(category => category.key === entryCategoryKey)
+        })
+        if (existingCategories.length === 0) {
+            console.log(`${entry.content} will be removed as no existing categories left for him.`)
+            entriesIdsToDelete.push(entry.id)
+        }
+        console.log(entry.content, '  |  ', entry.categories, ' => ', existingCategories)
+        entry.categories = existingCategories
+        console.log(entry.content, ' | categories left:', entry.categories)
+        return entry
+    })
+    database.entries = databaseAfterOperation
+    console.log('Entries to delete', entriesIdsToDelete)
+    entriesIdsToDelete.forEach(deleteEntryById)
+}
+
 function mapCategoryFormToKey(categoryForm) {
     return database.categories.find(categoryObject => 
         matchCategory(categoryForm, categoryObject)).key
@@ -134,5 +162,6 @@ module.exports = {
     getEntryById,
     getCategoryByName,
     deleteEntryById,
-    mapCategoryFormToKey
+    mapCategoryFormToKey,
+    deleteCategoryByKey
 }

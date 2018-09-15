@@ -83,7 +83,7 @@ async function handleAddEntryPayload(payload) {
         const nonExistingCategories = findNonExistingCategories(listOfCategories)
         throw `Some of categories that you wanted to use, do not exist: ${JSON.stringify(nonExistingCategories)}`
     }
-    newEntryInfo.categories = listOfCategories
+    newEntryInfo.categories = listOfCategories.map(databaseDriver.mapCategoryFormToKey)
 
     const stringifiedListOfTags = await createQuestion('What tags do you want to assign?')
     const listOfTags = parseUserProvidedList(stringifiedListOfTags)
@@ -124,6 +124,12 @@ async function handleEntryDeletion(payload) {
     console.log('Entry deleted!')
 }
 
+async function handleCategoryDeletion(categoryForm) {
+    const categoryKey = databaseDriver.mapCategoryFormToKey(categoryForm)
+    console.log(`DELETING ${categoryKey}`)
+    databaseDriver.deleteCategoryByKey(categoryKey)
+}
+
 function handleArguments({argument, payload}) {
     console.log('handle arguments')
     switch (argument) {
@@ -139,6 +145,8 @@ function handleArguments({argument, payload}) {
             return handleEditEntryPayload(payload)
         case ARGUMENTS.DELETE_ENTRY:
             return handleEntryDeletion(payload)
+        case ARGUMENTS.DELETE_CATEGORY:
+            return handleCategoryDeletion(payload)
         default:
             throw `Unhandled category: ${argument} with payload: ${payload}`
     }
