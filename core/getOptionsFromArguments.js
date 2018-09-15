@@ -10,7 +10,11 @@ const argumentsMap = new Map([
     ['-l', ARGUMENTS.LIST_BY_CATEGORY],
     ['--list', ARGUMENTS.LIST_BY_CATEGORY],
     ['-q', ARGUMENTS.QUERY],
-    ['--query', ARGUMENTS.QUERY]
+    ['--query', ARGUMENTS.QUERY],
+    ['-ee', ARGUMENTS.EDIT_ENTRY],
+    ['--edit-entry', ARGUMENTS.EDIT_ENTRY],
+    ['-ec', ARGUMENTS.EDIT_CATEGORY],
+    ['--edit-category', ARGUMENTS.EDIT_CATEGORY]
 ])
 
 function getOptionsFromArguments(processArguments) {

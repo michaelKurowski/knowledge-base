@@ -11,6 +11,14 @@ function compareStringsWithoutCaseSensitivity(stringA, stringB) {
     return stringSimiliarity.compareTwoStrings(stringA.toUpperCase(), stringB.toUpperCase())
 }
 
+function calculateScoreForCategories(entry, queryKeywords) {
+    return entry.categories.reduce((entryTotalScore, category) => 
+        entryTotalScore + queryKeywords.reduce((categoryTotalScore, keyword) => 
+            categoryTotalScore + compareStringsWithoutCaseSensitivity(category, keyword)
+        , 0) / queryKeywords.length
+    , 0) / entry.categories.length
+}
+
 function calculateScoreForTags(entry, queryKeywords) {
     return entry.tags.reduce((entryTotalScore, tag) => 
         entryTotalScore + queryKeywords.reduce((tagTotalScore, keyword) => 
@@ -26,8 +34,9 @@ function calculateScoreForContent(entry, queryKeywords) {
 function calculateScore (entry, keywords) {
     return (
         calculateScoreForContent(entry, keywords) +
-        calculateScoreForTags(entry, keywords)
-    ) / 2
+        calculateScoreForTags(entry, keywords) +
+        calculateScoreForCategories(entry, keywords)
+    ) / 3
 }
 
 function getDatabase() {
@@ -67,4 +76,22 @@ function hasCategory(categoryName) {
     return !!database.categories.find(iteratedCategory => iteratedCategory === categoryName)
 }
 
-module.exports = {getDatabase, query, loadDatabase, addEntry, addCategory, hasCategory, filterByCategory}
+function getEntryById(id) {
+    return database.entries.find(entry => entry.id === id)
+}
+
+function getCategoryByName(wantedCategoryName) {
+    return database.categories.find(category => category === wantedCategoryName )
+}
+
+module.exports = {
+    getDatabase,
+    query,
+    loadDatabase,
+    addEntry,
+    addCategory,
+    hasCategory,
+    filterByCategory,
+    getEntryById,
+    getCategoryByName
+}
