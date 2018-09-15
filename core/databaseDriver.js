@@ -151,6 +151,22 @@ function matchCategory(query, category) {
     )
 }
 
+function changeCategoryKey(categoryKey, newCategoryKey) {
+    const entriesAfterOperation = database.entries.map(entry => {
+        const newCategories = entry.categories.map(category => (category === categoryKey) ? newCategoryKey : category)
+        entry.categories = newCategories
+        return entry
+    })
+    const category = database.categories.find(iteratedCategory => iteratedCategory.key === categoryKey)
+    category.key = newCategoryKey
+    database.entries = entriesAfterOperation
+}
+
+function changeCategoryAliases(targetCategoryKey, newAliases) {
+    const category = database.categories.find(category => category.key === targetCategoryKey)
+    category.aliases = newAliases
+}
+
 module.exports = {
     getDatabase,
     query,
@@ -163,5 +179,7 @@ module.exports = {
     getCategoryByName,
     deleteEntryById,
     mapCategoryFormToKey,
-    deleteCategoryByKey
+    deleteCategoryByKey,
+    changeCategoryKey,
+    changeCategoryAliases
 }

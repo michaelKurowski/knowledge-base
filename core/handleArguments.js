@@ -130,6 +130,17 @@ async function handleCategoryDeletion(categoryForm) {
     databaseDriver.deleteCategoryByKey(categoryKey)
 }
 
+async function handleEditCategoryPayload(categoryForm) {
+    const categoryKey = databaseDriver.mapCategoryFormToKey(categoryForm)
+    const newKey = await createQuestion(`What's new category key? (Leave empty if you don't want to change this)`)
+    const stringifiedListOfNewAliases = await createQuestion(`What are new aliases (Leave empty if you don't want to change this)`)
+    const listOfAliases = stringifiedListOfNewAliases.split(' ')
+    if (listOfAliases)
+        databaseDriver.changeCategoryAliases(categoryKey, listOfAliases)
+    if (newKey)
+        databaseDriver.changeCategoryKey(categoryKey, newKey)
+}
+
 function handleArguments({argument, payload}) {
     console.log('handle arguments')
     switch (argument) {
@@ -147,6 +158,8 @@ function handleArguments({argument, payload}) {
             return handleEntryDeletion(payload)
         case ARGUMENTS.DELETE_CATEGORY:
             return handleCategoryDeletion(payload)
+        case ARGUMENTS.EDIT_CATEGORY:
+            return handleEditCategoryPayload(payload)
         default:
             throw `Unhandled category: ${argument} with payload: ${payload}`
     }
