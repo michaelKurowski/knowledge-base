@@ -53,7 +53,7 @@ There are 2 quickiest ways to install the package
 
 
 # Roadmap
- - [x] Proof of Concept (WIP)
+ - [x] Fully working Proof of Concept
  - [ ] Functionality described in this README
  - [ ] Autocomplete for tags
  - [ ] Add ability to store knowledge online
