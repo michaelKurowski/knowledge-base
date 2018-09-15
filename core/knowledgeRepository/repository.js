@@ -7,14 +7,14 @@ function addCategory(categoryObject) {
     repository.categories.push(categoryObject)
 }
 
-function editCategory(id, newProperties) {
-    const relevelantCategory = repository.categories.find(category => category.id === id)
+function editCategory(key, newProperties) {
+    const relevelantCategory = repository.categories.find(category => category.key === key)
     Object.assign(relevelantCategory, newProperties)
 }
 
-function deleteCategory(id) {
+function deleteCategory(key) {
     const COUNT_OF_CATEGORIES_TO_BE_DELETED = 1
-    const targetIndex = repository.categories.findIndex(category => category.id === id)
+    const targetIndex = repository.categories.findIndex(category => category.key === key)
     repository.categories.splice(targetIndex, COUNT_OF_CATEGORIES_TO_BE_DELETED)
 }
 
