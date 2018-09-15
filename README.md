@@ -3,6 +3,11 @@ This is a NodeJS app, that helps to save useful information during your life.
 You can store your newly earned knowledge and links and assign tags to these entries.
 Later when you want to retrieve the information you can just query to db of your entries.
 
+Fully working proof of concept is availible on this branch:
+https://github.com/michaelKurowski/knowledge-base/tree/poc-first-iteration
+
+Master branch is only for well engineered version.
+
 # Usage
  The main command is called `knowledge-base` but you can also use `kb` alias.
  - **Add new entry** WIP
