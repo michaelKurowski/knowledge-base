@@ -1,0 +1,32 @@
+const stringSimiliarity = require('string-similarity')
+
+const categoriesRepository = require('./categoriesRepository')
+const notesRepository = require('./notesRepository')
+
+function removeCategory(targetKey) {
+    categoriesRepository.remove(targetKey)
+    notesRepository.removeCategoryFromEntries(targetKey)
+}
+
+function queryNotes(phrase) {
+    return notesRepository.fuzzyFind(assignMatchScoreToNote(phrase))
+}
+
+function assignMatchScoreToNote(phraseToMatchAgainst) {
+    return note => {
+        const stringListOfCategoriesForms = note.categories.map(categoryKey => 
+            [categoryKey, ...categoriesRepository.mapKeyToAliases(categoryKey)].join(' '))
+        const stringListOfTags = note.tags.join(' ')
+        const fullString = `${note.content} ${stringListOfCategoriesForms} ${stringListOfTags}`
+        const score = stringSimiliarity(fullString, phraseToMatchAgainst)
+        return {
+            note,
+            score
+        }
+    }
+}
+
+module.exports = {
+    removeCategory,
+    queryNotes
+}
