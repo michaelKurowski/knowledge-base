@@ -2,6 +2,9 @@ let repository = []
 
 
 module.exports = {
+    getAll() {
+        return repository
+    },
     add(noteObject) {
         repository.push(noteObject)
     },

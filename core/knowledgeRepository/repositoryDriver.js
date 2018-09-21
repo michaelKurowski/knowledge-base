@@ -3,6 +3,11 @@ const stringSimiliarity = require('string-similarity')
 const categoriesRepository = require('./categoriesRepository')
 const notesRepository = require('./notesRepository')
 
+function load({categories, notes}) {
+    categories.forEach(categoriesRepository.add)
+    notes.forEach(notesRepository.add)
+}
+
 function removeCategory(targetKey) {
     categoriesRepository.remove(targetKey)
     notesRepository.removeCategoryFromEntries(targetKey)
@@ -26,7 +31,18 @@ function assignMatchScoreToNote(phraseToMatchAgainst) {
     }
 }
 
+function getCategories() {
+    return categoriesRepository.getAll()
+}
+
+function getNotes() {
+    return notesRepository.getAll()
+}
+
 module.exports = {
     removeCategory,
-    queryNotes
+    queryNotes,
+    load,
+    getCategories,
+    getNotes
 }

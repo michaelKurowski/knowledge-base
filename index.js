@@ -1,25 +1,31 @@
 const util = require('util')
 const fs = require('fs')
 
-const initializeDatabase = require('./core/initializeDatabase')
-const databaseDriver = require('./core/databaseDriver')
-const getOptionsFromArguments = require('./core/getOptionsFromArguments')
+
+const mapArgvToActions = require('./core/mapArgvToActions')
 const handleArguments = require('./core/handleArguments')
-let database
+const repositoryDriver = require('./core/knowledgeRepository/repositoryDriver')
+let categories
+let notes
 try {
-    database = require('./database.json')
-} catch (err) {
-    //Check if err is about no file found
-    database = initializeDatabase()
+    categories = require('./categories.json')
+} catch (err) {//TODO handle many types of errors
+    console.warn('Unable to find categories repository, creating new one')
 }
 
-databaseDriver.loadDatabase(database)
+try {
+    notes = require('./notes.json')
+} catch(err) {//TODO handle many types of errors
+    console.warn('Unable to find notes repository, creating new one')
+}
+
+repositoryDriver.load({categories, notes})
 console.log('process.argv', process.argv)
-const optionsObject = getOptionsFromArguments(process.argv)
-handleArguments(optionsObject)
+const actionObject = mapArgvToActions(process.argv)
+handleArguments(actionObject)
     .then(() => {
-        const formattedDb = util.inspect(databaseDriver.getDatabase())
         //console.log(formattedDb)
-        fs.writeFileSync('./database.json', JSON.stringify(databaseDriver.getDatabase()))
+        fs.writeFileSync('./categories.json', JSON.stringify(repositoryDriver.getCategories()))
+        fs.writeFileSync('./notes.json', JSON.stringify(repositoryDriver.getNotes()))
         process.exit()
     })
