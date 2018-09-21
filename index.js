@@ -2,8 +2,8 @@ const util = require('util')
 const fs = require('fs')
 
 
-const mapArgvToActions = require('./core/mapArgvToActions')
-const handleArguments = require('./core/handleArguments')
+const mapArgvToAction = require('./core/mapArgvToAction')
+const route = require('./core/route')
 const repositoryDriver = require('./core/knowledgeRepository/repositoryDriver')
 let categories
 let notes
@@ -21,8 +21,8 @@ try {
 
 repositoryDriver.load({categories, notes})
 console.log('process.argv', process.argv)
-const actionObject = mapArgvToActions(process.argv)
-handleArguments(actionObject)
+const actionObject = mapArgvToAction(process.argv)
+route(actionObject)
     .then(() => {
         //console.log(formattedDb)
         fs.writeFileSync('./categories.json', JSON.stringify(repositoryDriver.getCategories()))
