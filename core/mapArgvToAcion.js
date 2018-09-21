@@ -5,8 +5,7 @@ const ACTION_PAYLOAD_OFFSET = 3
 
 function mapArgvToAction(argv) {
     const flag = argv[ACTION_OFFSET]
-    const payload = argv[ACTION_PAYLOAD_OFFSET]
-
+    const payload = argv.splice(ACTION_PAYLOAD_OFFSET)
     const action = commandOptions.get(flag)
 
     return {action, payload}

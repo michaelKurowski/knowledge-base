@@ -3,9 +3,9 @@ const categoriesRepository = require('../knowledgeRepository/categoriesRepositor
 const createCategory = require('../createCategory')
 
 module.exports = {
-    [ACTIONS.ADD_CATEGORY](categoryKey, categoryAliases) {
-        const newCategory = createCategory(categoryKey, categoryAliases)
-        categoriesRepository.add(newCategory)
+    async [ACTIONS.ADD_CATEGORY](categoryAliasesList) {
+        categoriesRepository.add(categoryAliasesList)
+        return
     },
 
     [ACTIONS.EDIT_CATEGORY](targetKey, {aliases, key}) {

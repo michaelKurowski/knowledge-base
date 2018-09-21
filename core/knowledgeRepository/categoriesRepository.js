@@ -4,8 +4,8 @@ module.exports = {
     getAll() {
         return repository
     },
-    add() {
-        repository.push(categoryObject)
+    add(categoryAliases) {
+        repository.push(categoryAliases)
     },
     edit() {
         const relevelantCategory = repository.find(category => category.key === key)
@@ -16,13 +16,10 @@ module.exports = {
         const targetIndex = repository.findIndex(category => category.key === key)
         repository.splice(targetIndex, COUNT_OF_CATEGORIES_TO_BE_DELETED)
     },
-    has() {
-        const matchingCategory = repository.find(category => {
-            const isKeyMatching = category.key === phrase
-            const isAnyAliasMatching = category.aliases.some(alias => alias === phrase)
-            return isKeyMatching || isAnyAliasMatching
-        })
-        return !!matchingCategory
+    has(variant) {
+        return repository.some(category => 
+            category.some(alias => alias === variant)
+        )
     },
     mapKeyToAliases(targetKey) {
         const matchingCategory = repository.find(category => category.key === targetKey)

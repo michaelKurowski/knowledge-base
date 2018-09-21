@@ -2,11 +2,11 @@ const util = require('util')
 const fs = require('fs')
 
 
-const mapArgvToAction = require('./core/mapArgvToAction')
+const mapArgvToAcion = require('./core/mapArgvToAcion')
 const route = require('./core/route')
 const repositoryDriver = require('./core/knowledgeRepository/repositoryDriver')
-let categories
-let notes
+let categories = []
+let notes = []
 try {
     categories = require('./categories.json')
 } catch (err) {//TODO handle many types of errors
@@ -21,7 +21,7 @@ try {
 
 repositoryDriver.load({categories, notes})
 console.log('process.argv', process.argv)
-const actionObject = mapArgvToAction(process.argv)
+const actionObject = mapArgvToAcion(process.argv)
 route(actionObject)
     .then(() => {
         //console.log(formattedDb)

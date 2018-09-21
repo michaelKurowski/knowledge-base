@@ -4,8 +4,9 @@ const browsingActions = require('./actions/browsingActions')
 
 const router = Object.assign({}, categoryActions, notesActions, browsingActions)
 
-function route({action, payload}) {
-    router[action](payload)
+async function route({action, payload}) {
+    console.log(router, action)
+    return router[action](payload)
 }
 
 module.exports = route
