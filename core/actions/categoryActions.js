@@ -3,11 +3,12 @@ const categoriesRepository = require('../knowledgeRepository/categoriesRepositor
 const createQuestion = require('./createQuestion')
 
 module.exports = {
+    //works
     async [ACTIONS.ADD_CATEGORY](categoryAliasesList) {
         categoriesRepository.add(categoryAliasesList)
         return
     },
-
+    //works
     async [ACTIONS.EDIT_CATEGORY](categoryVariant) {
         const newAliasesString = await createQuestion('Enlist new variants for this category or leavy empty to not introduce any changes.')
         if (!newAliasesString) return
