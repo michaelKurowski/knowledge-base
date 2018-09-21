@@ -1,6 +1,6 @@
 const ACTIONS = require('../actions')
 const categoriesRepository = require('../knowledgeRepository/categoriesRepository')
-const createCategory = require('../createCategory')
+const createQuestion = require('./createQuestion')
 
 module.exports = {
     async [ACTIONS.ADD_CATEGORY](categoryAliasesList) {
@@ -8,8 +8,13 @@ module.exports = {
         return
     },
 
-    [ACTIONS.EDIT_CATEGORY](targetKey, {aliases, key}) {
+    async [ACTIONS.EDIT_CATEGORY](categoryVariant) {
+        const newAliasesString = await createQuestion('Enlist new variants for this category or leavy empty to not introduce any changes.')
+        if (!newAliasesString) return
+        const newAliases = newAliasesString.split(' ')
 
+        try { categoriesRepository.edit(categoryVariant[0], newAliases) }
+        catch (err) { throw `Edition unsuccessful, reason: ${err}` }
     },
 
     [ACTIONS.DELETE_CATEGORY](targetKey) {

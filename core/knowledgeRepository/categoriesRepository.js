@@ -7,9 +7,11 @@ module.exports = {
     add(categoryAliases) {
         repository.push(categoryAliases)
     },
-    edit() {
-        const relevelantCategory = repository.find(category => category.key === key)
-        Object.assign(relevelantCategory, newProperties)
+    edit(oldVariant, newVariants) {
+        const relevelantCategory = repository.find(matchCategory.bind(null, oldVariant))
+        if (!relevelantCategory) throw 'No matching category found'
+        relevelantCategory.length = 0
+        newVariants.forEach(variant => relevelantCategory.push(variant))
     },
     remove() {
         const COUNT_OF_CATEGORIES_TO_BE_DELETED = 1
@@ -35,9 +37,5 @@ module.exports = {
 
 function matchCategory(query, category) {
     const normalizedQuery = query.toUpperCase()
-    const normalizedCategoryKey = category.key.toUpperCase()
-    const normalizedCategoryAliases = category.aliases.map(alias => alias.toUpperCase())
-    return [normalizedCategoryKey, ...normalizedCategoryAliases].find(categoryForm =>
-        categoryForm === normalizedQuery
-    )
+    return category.some(variant => variant.toUpperCase() === normalizedQuery)
 }
