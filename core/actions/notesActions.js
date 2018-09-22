@@ -47,7 +47,7 @@ module.exports = {
         try { notesRepository.edit(parseInt(noteIdString), newNote) }
         catch (err) { throw `Edition unsuccessful, reason: ${err}` }
     },
-    async [ACTIONS.DELETE_NOTE](targetKey) {
-        notesRepository.remove(targetKey[0])
+    async [ACTIONS.REMOVE_NOTE](targetKey) {
+        notesRepository.remove(parseInt(targetKey[0]))
     }
 }
