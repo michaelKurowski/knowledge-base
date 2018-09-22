@@ -4,7 +4,7 @@ module.exports = {
     getAll() {
         return repository
     },
-    add(categoryVariants) {//TODO add check for already existing category
+    add(categoryVariants) {
         const areSomeVariantsAlreadyInUse = categoryVariants.some(this.has)
         if (areSomeVariantsAlreadyInUse) throw `Some of proposed category variants are already in use.`
         repository.push(categoryVariants)
@@ -12,6 +12,16 @@ module.exports = {
     edit(oldVariant, newVariants) {
         const relevelantCategory = repository.find(matchCategory.bind(null, oldVariant))
         if (!relevelantCategory) throw 'No matching category found'
+
+        const conflictingCategories = newVariants.map(this.get)
+        const areSomeCategoriesConflcitingWithTheRestOfRepository =
+            conflictingCategories.some(conflictingCategory =>
+                conflictingCategory && (conflictingCategory !== relevelantCategory)
+            )
+
+        if (areSomeCategoriesConflcitingWithTheRestOfRepository)
+            throw `Some of new variants are used elsewhere`
+
         relevelantCategory.length = 0
         newVariants.forEach(variant => relevelantCategory.push(variant))
     },
