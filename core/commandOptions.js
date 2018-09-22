@@ -12,7 +12,7 @@ const commandOptions = new Map([
     ['--edit-note', ACTIONS.EDIT_NOTE],
     ['-ec', ACTIONS.EDIT_CATEGORY],
     ['--edit-category', ACTIONS.EDIT_CATEGORY],
-    ['-de', ACTIONS.DELETE_NOTE],
+    ['-dn', ACTIONS.DELETE_NOTE],
     ['--delete-note', ACTIONS.DELETE_NOTE],
     ['-dc', ACTIONS.DELETE_CATEGORY],
     ['--delete-category', ACTIONS.DELETE_CATEGORY]
