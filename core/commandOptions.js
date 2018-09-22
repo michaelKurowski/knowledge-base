@@ -8,7 +8,7 @@ const commandOptions = new Map([
     ['--list', ACTIONS.LIST_BY_CATEGORY],
     ['-q', ACTIONS.QUERY],
     ['--query', ACTIONS.QUERY],
-    ['-ee', ACTIONS.EDIT_NOTE],
+    ['-en', ACTIONS.EDIT_NOTE],
     ['--edit-note', ACTIONS.EDIT_NOTE],
     ['-ec', ACTIONS.EDIT_CATEGORY],
     ['--edit-category', ACTIONS.EDIT_CATEGORY],

@@ -11,6 +11,7 @@ module.exports = {
     },
     edit(id, newProperties) {
         const relevelantNote = repository.find(note => note.id === id)
+        if (!relevelantNote) throw 'No note found with matching ID'
         Object.assign(relevelantNote, newProperties)
     },
     remove(id) {

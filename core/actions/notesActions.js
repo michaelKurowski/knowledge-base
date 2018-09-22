@@ -23,12 +23,28 @@ module.exports = {
         notesRepository.add({ content: noteContentString, tags: tagsList, categories: categoriesList })
         return
     },
-    async [ACTIONS.EDIT_NOTE](categoryVariant) {
-        const newAliasesString = await createQuestion('Enlist new variants for this category or leavy empty to not introduce any changes.')
-        if (!newAliasesString) return
-        const newAliases = newAliasesString.split(' ')
+    async [ACTIONS.EDIT_NOTE](noteIdString) {
+        const newContent =
+            await createQuestion('Type new content for the note, or leave empty to skip that step.')
+        
+        const newCategoriesString = 
+            await createQuestion('Enlist new categories for the note, or leave empty to skip that step.')
+        const newCategoriesList = newCategoriesString.split(' ')
+        const areAllEnlistedCategoriesExisting = newCategoriesList.every(categoriesRepository.has)
+        if (!areAllEnlistedCategoriesExisting && newCategoriesString) 
+            throw `Some of the enlisted categories don't exist!`
 
-        try { notesRepository.edit(categoryVariant[0], newAliases) }
+        const newTagsString =
+            await createQuestion('Enlist new tags for the note, or leave empty to skip that step.')
+        
+        const newTagsList = newTagsString.split(' ')
+       
+        const newNote = {}
+        
+        if (newCategoriesString) newNote.categories = newCategoriesList
+        if (newContent) newNote.content = newContent
+        if (newTagsString) newNote.tags = newTagsList
+        try { notesRepository.edit(parseInt(noteIdString), newNote) }
         catch (err) { throw `Edition unsuccessful, reason: ${err}` }
     },
     async [ACTIONS.DELETE_NOTE](targetKey) {
