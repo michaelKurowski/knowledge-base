@@ -1,4 +1,3 @@
-const util = require('util')
 const fs = require('fs')
 
 const categoriesRepository = require('./core/knowledgeRepository/categoriesRepository')
@@ -6,25 +5,22 @@ const notesRepository = require('./core/knowledgeRepository/notesRepository')
 const mapArgvToAcion = require('./core/mapArgvToAcion')
 const route = require('./core/route')
 
+const CATEGORIES_REPOSITORY_PATH = './categories.json'
+const NOTES_REPOSITORY_PATH = './notes.json'
 
+const categories = loadDataFromRepository(CATEGORIES_REPOSITORY_PATH)
+const notes = loadDataFromRepository(NOTES_REPOSITORY_PATH)
 
-const categories = loadDataFromRepository('./categories.json')
-const notes = loadDataFromRepository('./notes.json')
 
 categories.forEach(categoriesRepository.add)
 notes.forEach(notesRepository.add)
 
-const actionObject = mapArgvToAcion(process.argv)
-route(actionObject)
-    .then(() => {
-        fs.writeFileSync('./categories.json', JSON.stringify(categoriesRepository.getAll()))
-        fs.writeFileSync('./notes.json', JSON.stringify(notesRepository.getAll()))
-        process.exit()
-    })
-    .catch(err => {
-        console.error(`Operation failed. More info:\n${err}`)
-        process.exit()
-    })
+const actionToBePerformed = mapArgvToAcion(process.argv)
+
+route(actionToBePerformed)
+    .then(saveRepositories)
+    .catch(err => console.error(`Operation failed. More info:\n${err}`))
+    .then(process.exit)
 
 function handleRepositoryLoadingError(err) {
     const MODULE_NOT_FOUND_ERROR = 'MODULE_NOT_FOUND'
@@ -41,4 +37,9 @@ function loadDataFromRepository(path) {
     } catch (err) {
         handleRepositoryLoadingError(err)
     }
+}
+
+function saveRepositories() {
+    fs.writeFileSync(CATEGORIES_REPOSITORY_PATH, JSON.stringify(categoriesRepository.getAll()))
+    fs.writeFileSync(NOTES_REPOSITORY_PATH, JSON.stringify(notesRepository.getAll()))
 }
