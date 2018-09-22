@@ -1,7 +1,6 @@
 const createNote = require('../createNote')
 let repository = []
 
-
 module.exports = {
     getAll() {
         return repository
