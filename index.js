@@ -3,7 +3,7 @@ const fs = require('fs')
 const categoriesRepository = require('./core/knowledgeRepository/categoriesRepository')
 const notesRepository = require('./core/knowledgeRepository/notesRepository')
 const mapArgvToAcion = require('./core/mapArgvToAcion')
-const route = require('./core/route')
+const sendToRouter = require('./core/sendToRouter')
 
 const CATEGORIES_REPOSITORY_PATH = './categories.json'
 const NOTES_REPOSITORY_PATH = './notes.json'
@@ -17,7 +17,7 @@ notes.forEach(notesRepository.add)
 
 const actionToBePerformed = mapArgvToAcion(process.argv)
 
-route(actionToBePerformed)
+sendToRouter(actionToBePerformed)
     .then(saveRepositories)
     .catch(err => console.error(`Operation failed. More info:\n${err}`))
     .then(process.exit)

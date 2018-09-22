@@ -4,10 +4,10 @@ const browsingActions = require('./actions/browsingActions')
 
 const router = Object.assign({}, categoryActions, notesActions, browsingActions)
 
-async function route({action, payload}) {
+async function sendToRouter({action, payload}) {
     if (!router[action]) throw `There's no logic attached to the action "${action}"`
     return router[action](payload)
 
 }
 
-module.exports = route
+module.exports = sendToRouter
