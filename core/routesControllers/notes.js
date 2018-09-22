@@ -1,7 +1,7 @@
 const ACTIONS = require('../actions')
 const notesRepository = require('../knowledgeRepository/notesRepository')
 const categoriesRepository = require('../knowledgeRepository/categoriesRepository')
-const createQuestion = require('./createQuestion')
+const createQuestion = require('./utils/createQuestion')
 
 module.exports = {
     async [ACTIONS.ADD_NOTE](noteContentWordsList) {

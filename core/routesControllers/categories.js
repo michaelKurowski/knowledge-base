@@ -1,6 +1,6 @@
 const ACTIONS = require('../actions')
 const categoriesRepository = require('../knowledgeRepository/categoriesRepository')
-const createQuestion = require('./createQuestion')
+const createQuestion = require('./utils/createQuestion')
 
 module.exports = {
     async [ACTIONS.ADD_CATEGORY](categoryAliasesList) {
