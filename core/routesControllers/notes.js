@@ -1,10 +1,10 @@
-const ACTIONS = require('../actions')
+const ROUTES = require('../routes')
 const notesRepository = require('../knowledgeRepository/notesRepository')
 const categoriesRepository = require('../knowledgeRepository/categoriesRepository')
 const createQuestion = require('./utils/createQuestion')
 
 module.exports = {
-    async [ACTIONS.ADD_NOTE](noteContentWordsList) {
+    async [ROUTES.ADD_NOTE](noteContentWordsList) {
         const noteContentString = noteContentWordsList.join(' ')
         const categoriesString =
             await createQuestion('Enlist categories for the note.')
@@ -23,7 +23,7 @@ module.exports = {
         notesRepository.add({ content: noteContentString, tags: tagsList, categories: categoriesList })
         return
     },
-    async [ACTIONS.EDIT_NOTE](noteIdString) {
+    async [ROUTES.EDIT_NOTE](noteIdString) {
         const newContent =
             await createQuestion('Type new content for the note, or leave empty to skip that step.')
         
@@ -47,7 +47,7 @@ module.exports = {
         try { notesRepository.edit(parseInt(noteIdString), newNote) }
         catch (err) { throw `Edition unsuccessful, reason: ${err}` }
     },
-    async [ACTIONS.DELETE_NOTE](targetKey) {
+    async [ROUTES.DELETE_NOTE](targetKey) {
         notesRepository.remove(parseInt(targetKey[0]))
     }
 }
