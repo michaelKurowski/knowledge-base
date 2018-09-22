@@ -20,7 +20,7 @@ function queryNotes(phrase) {
 function assignMatchScoreToNote(phraseToMatchAgainst) {
     return note => {
         const stringListOfCategoriesForms = note.categories.map(categoryKey => 
-            [categoryKey, ...categoriesRepository.mapKeyToAliases(categoryKey)].join(' '))
+            [categoryKey, ...categoriesRepository.get(categoryKey)].join(' '))
         const stringListOfTags = note.tags.join(' ')
         const fullString = `${note.content} ${stringListOfCategoriesForms} ${stringListOfTags}`
         const score = stringSimiliarity(fullString, phraseToMatchAgainst)
