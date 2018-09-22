@@ -10,8 +10,8 @@ Master branch is only for well engineered version.
 
 # Usage
  The main command is called `knowledge-base` but you can also use `kb` alias.
- - **Add new entry** WIP
-    - `kb --entry "Put not here"` or `kb -e "Put note here"`
+ - **Add new note** WIP
+    - `kb --note "Put not here"` or `kb -n "Put note here"`
     KB then will ask you for categories. You can specify them by putting words separated by spaces:
     `Links Tutorials`.
     KB then ask you for query keywords that will help to find it later
@@ -23,15 +23,15 @@ Master branch is only for well engineered version.
     - `kb --list "CategoryOne CategoryTwo"` or `kb -l CategoryOne CategoryTwo`
  - **Query your knowledge database** WIP
     - `kb --query "Phrase"` or `kb -q "Phrase"`
- - **Edit entry** WIP
-    - `kb --edit-entry ID` or `kb -ee` You'll then be prompted to edit info in the following sequence:
+ - **Edit note** WIP
+    - `kb --edit-note ID` or `kb -en` You'll then be prompted to edit info in the following sequence:
         1. Content
         2. Categories
         3. Keywords
  - **Edit category** WIP
-    - `kb --edit-category CategoryName` or `kb -ec CategoryName`. You'll be then prompted to entry new category key and aliases.
- - **Delete entry** WIP
-    - `kb --delete-entry ID` or `kb -de ID`
+    - `kb --edit-category CategoryName` or `kb -ec CategoryName`. You'll be then prompted to note new category key and aliases.
+ - **Delete note** WIP
+    - `kb --delete-note ID` or `kb -dn ID`
  - **Delete category** WIP
     - `kb --delete-category CategoryName` or `kb -dc CategoryName` 
 
@@ -41,15 +41,15 @@ Let's say that I want to save an url to some cool Gimp tutorials.
 `kb --category JavaScript`
 KB asks me to choose aliases for my new category:
 `JS EcmaScript ES`
-2. I add a new entry:
-`kb --entry "https://somePlatform/sometutorial/blahblahblah"`
+2. I add a new note:
+`kb --note "https://somePlatform/sometutorial/blahblahblah"`
 Kb asks me to choose categories:
 `js`
 Kb asks me to choose tags that I might later use to find that information:
 `understanding promises`
-3. I want to find my entry back:
+3. I want to find my note back:
 `kb --query "js promises"`
-Query is rather intelligent and will take into account categories and their aliases, entry content and tags.
+Query is rather intelligent and will take into account categories and their aliases, note content and tags.
 
 # Instalation
 There are 2 quickiest ways to install the package
