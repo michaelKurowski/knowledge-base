@@ -6,8 +6,7 @@ const matchScoreCalculator = require('../knowledgeRepository/matchScoreCalculato
 module.exports = {
     async [ACTIONS.QUERY](phrase) {
         const results = notesRepository.fuzzyFind(matchScoreCalculator.bind(null, phrase))
-        console.log('RESULTS:')
-        results.forEach(printNote)
+        printResults(results)
     },
     async [ACTIONS.LIST_BY_CATEGORY](categoryQuery) {
         const queryVariants = categoriesRepository.get(categoryQuery[0])
@@ -16,9 +15,13 @@ module.exports = {
                 queryVariants.find(queryVariant => categoryVariant === queryVariant)
             )
         )
-        console.log('RESULTS:')
-        notesMatchingCriteria.forEach(printNote)
+        printResults(notesMatchingCriteria)
     }
+}
+
+function printResults(results) {
+    console.log('RESULTS:')
+    results.forEach(printNote)
 }
 
 function printNote(note) {
