@@ -17,7 +17,7 @@ module.exports = {
         try { categoriesRepository.edit(categoryVariant[0], newAliases) }
         catch (err) { throw `Edition unsuccessful, reason: ${err}` }
     },
-
+    //works
     async [ACTIONS.DELETE_CATEGORY](targetKey) {
         categoriesRepository.remove(targetKey[0])
     }
