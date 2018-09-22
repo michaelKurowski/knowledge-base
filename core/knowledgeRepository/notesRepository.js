@@ -26,10 +26,12 @@ module.exports = {
         })
         removeNotesWithNoKeywords()
     },
+    filter(callback) {
+        return repository.filter(callback)
+    },
     fuzzyFind(callback) {
         const listOfResults = repository.map(callback)
         const meaningfulResults = listOfResults.filter(result => result.score > 0)
-        console.log('meaningful score', listOfResults)
         const sortedResults = meaningfulResults.sort((resultA, resultB) => resultB.score - resultA.score)
         return sortedResults.map(result => result.note)
     }

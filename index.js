@@ -20,11 +20,9 @@ try {
 }
 
 repositoryDriver.load({categories, notes})
-console.log('process.argv', process.argv)
 const actionObject = mapArgvToAcion(process.argv)
 route(actionObject)
     .then(() => {
-        //console.log(formattedDb)
         fs.writeFileSync('./categories.json', JSON.stringify(repositoryDriver.getCategories()))
         fs.writeFileSync('./notes.json', JSON.stringify(repositoryDriver.getNotes()))
         process.exit()
