@@ -16,8 +16,24 @@ module.exports = {
         if (!newAliasesString) return
         const newAliases = newAliasesString.split(' ')
 
+        const oldAliases = categoriesRepository.get(categoryVariant[0])
+        if (!oldAliases) throw `No "${categoryVariant}" category found`
+        const oldHeadVariant = oldAliases[0]
+        const affectedNotes =
+            repositoriesUtils.getNoteByCategory(categoriesRepository, notesRepository, oldHeadVariant)
+
+
         try { categoriesRepository.edit(categoryVariant[0], newAliases) }
         catch (err) { throw `Edition unsuccessful, reason: ${err}` }
+        const newStateOfNotes = affectedNotes.map(note => {
+            note.categories = note.categories.map(category => {
+                return (category === oldHeadVariant) ? newAliases[0] : category
+            })
+            return note
+        })
+        newStateOfNotes.forEach(note => {
+            notesRepository.edit(note.id, {categories: note.categories})
+        })
     },
     async [ROUTES.DELETE_CATEGORY](targetKey) {
         const category = categoriesRepository.get(targetKey[0])
