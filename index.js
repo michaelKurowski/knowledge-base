@@ -22,6 +22,7 @@ sendToRouter(actionToBePerformed)
     .catch(err => console.error(`Operation failed. More info:\n${err}`))
     .then(process.exit)
 
+//LOCAL FUNCTIONS
 function handleRepositoryLoadingError(err) {
     const MODULE_NOT_FOUND_ERROR = 'MODULE_NOT_FOUND'
     if (err.code === MODULE_NOT_FOUND_ERROR) {
