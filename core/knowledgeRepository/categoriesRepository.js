@@ -13,9 +13,9 @@ module.exports = {
         relevelantCategory.length = 0
         newVariants.forEach(variant => relevelantCategory.push(variant))
     },
-    remove() {
+    remove(variant) {
         const COUNT_OF_CATEGORIES_TO_BE_DELETED = 1
-        const targetIndex = repository.findIndex(category => category.key === key)
+        const targetIndex = repository.findIndex(matchCategory.bind(null, variant))
         repository.splice(targetIndex, COUNT_OF_CATEGORIES_TO_BE_DELETED)
     },
     has(variant) {
