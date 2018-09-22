@@ -24,9 +24,10 @@ function printResults(results) {
     results.forEach(printNote)
 }
 
-function printNote(note) {
-    console.log('==================')
+function printNote(note, index) {
+    console.log(`#${index + 1}`)
     console.log(`ID: ${note.id}, CATEGORIES: ${note.categories}`)
     console.log(`TAGS: ${note.tags}`)
     console.log(note.content)
+    console.log('')
 }
