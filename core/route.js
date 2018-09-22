@@ -5,10 +5,9 @@ const browsingActions = require('./actions/browsingActions')
 const router = Object.assign({}, categoryActions, notesActions, browsingActions)
 
 async function route({action, payload}) {
+    if (!router[action]) throw `There's no logic attached to the action "${action}"`
     return router[action](payload)
-        .catch(err => {
-            console.error(`Operation failed. More info:\n${err}`)
-        })
+
 }
 
 module.exports = route

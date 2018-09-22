@@ -7,7 +7,7 @@ function mapArgvToAction(argv) {
     const flag = argv[ACTION_OFFSET]
     const payload = argv.splice(ACTION_PAYLOAD_OFFSET)
     const action = commandOptions.get(flag)
-
+    if (!action) throw `No action found for the flag "${flag}"`
     return {action, payload}
 }
 

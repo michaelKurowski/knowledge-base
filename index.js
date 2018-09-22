@@ -6,21 +6,14 @@ const notesRepository = require('./core/knowledgeRepository/notesRepository')
 const mapArgvToAcion = require('./core/mapArgvToAcion')
 const route = require('./core/route')
 
-let categories = []
-let notes = []
-try {
-    categories = require('./categories.json')
-} catch (err) {//TODO handle many types of errors
-    console.warn('Unable to find categories repository, creating new one')
-}
 
-try {
-    notes = require('./notes.json')
-} catch(err) {//TODO handle many types of errors
-    console.warn('Unable to find notes repository, creating new one')
-}
+
+const categories = loadDataFromRepository('./categories.json')
+const notes = loadDataFromRepository('./notes.json')
+
 categories.forEach(categoriesRepository.add)
 notes.forEach(notesRepository.add)
+
 const actionObject = mapArgvToAcion(process.argv)
 route(actionObject)
     .then(() => {
@@ -28,3 +21,24 @@ route(actionObject)
         fs.writeFileSync('./notes.json', JSON.stringify(notesRepository.getAll()))
         process.exit()
     })
+    .catch(err => {
+        console.error(`Operation failed. More info:\n${err}`)
+        process.exit()
+    })
+
+function handleRepositoryLoadingError(err) {
+    const MODULE_NOT_FOUND_ERROR = 'MODULE_NOT_FOUND'
+    if (err.code === MODULE_NOT_FOUND_ERROR) {
+        console.warn('Unable to find categories repository, creating new one')
+        return []
+    }
+    throw `Unhandled error during accessing categories repository: ${err.code}`
+}
+
+function loadDataFromRepository(path) {
+    try {
+        return require(path)
+    } catch (err) {
+        handleRepositoryLoadingError(err)
+    }
+}
