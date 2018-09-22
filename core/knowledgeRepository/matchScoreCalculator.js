@@ -3,9 +3,8 @@ const categoriesRepository = require('./categoriesRepository')
 
 function calculateForEntry(phrase, entry) {
     const scoreFromCategories = calculateScoreForCategories(entry, phrase)
-    const scoreFromTags = calculateScoreForTags(entry, phrase)
+    const scoreFromTags = compareListsOfWords(entry.tags, phrase)
     const scoreFromContent = compareStringsWithoutCaseSensitivity(entry.content, phrase.join(' '))
-    console.log('output', (scoreFromCategories + scoreFromTags + scoreFromContent) / 3)
     return {
         score: (scoreFromCategories + scoreFromTags + scoreFromContent) / 3,
         note: entry
@@ -16,24 +15,22 @@ function compareStringsWithoutCaseSensitivity(stringA, stringB) {
     return stringSimiliary.compareTwoStrings(stringA.toUpperCase(), stringB.toUpperCase())
 }
 
-function calculateScoreForCategories(entry, queryKeywords) {
-    return entry.categories.reduce((entryTotalScore, category) => 
-        entryTotalScore + queryKeywords.reduce((categoryTotalScore, keyword) => 
-            categoryTotalScore + 
-            categoriesRepository.get(category).reduce((categoryFormTotalScore, categoryForm) => 
-                categoryFormTotalScore + compareStringsWithoutCaseSensitivity(categoryForm, keyword)
-            , 0)
-        , 0) / queryKeywords.length
-    , 0) / entry.categories.length
+function compareListsOfWords(listA, listB) {
+    return listA.reduce((totalScore, listAEntry) => 
+        totalScore + listB.reduce((singleIterationScore, listBEntry) =>
+            singleIterationScore + compareStringsWithoutCaseSensitivity(listAEntry, listBEntry)
+        , 0) / listA.length
+    , 0) / listB.length
 }
 
-
-function calculateScoreForTags(entry, queryKeywords) {
-    return entry.tags.reduce((entryTotalScore, tag) => 
-        entryTotalScore + queryKeywords.reduce((tagTotalScore, keyword) => 
-            tagTotalScore + compareStringsWithoutCaseSensitivity(tag, keyword)
-        , 0) / queryKeywords.length
-    , 0) / entry.tags.length
+function calculateScoreForCategories(note, queryKeywords) {
+    const allCategoriesVariants = flattenList(note.categories.map(categoriesRepository.get))
+    return compareListsOfWords(allCategoriesVariants, queryKeywords)
 }
 
+function flattenList(list) {
+    return list.reduce((accumulator, listElement) => 
+        accumulator.concat(...listElement)
+    , [])
+}
 module.exports = calculateForEntry
