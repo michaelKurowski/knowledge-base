@@ -1,3 +1,4 @@
+const createNote = require('../createNote')
 let repository = []
 
 
@@ -5,8 +6,8 @@ module.exports = {
     getAll() {
         return repository
     },
-    add(noteObject) {
-        repository.push(noteObject)
+    add(noteSchema) {
+        repository.push(createNote(noteSchema))
     },
     edit(id, newProperties) {
         const relevelantNote = repository.find(note => note.id === id)

@@ -4,7 +4,7 @@ module.exports = {
     getAll() {
         return repository
     },
-    add(categoryAliases) {
+    add(categoryAliases) {//TODO add check for already existing category
         repository.push(categoryAliases)
     },
     edit(oldVariant, newVariants) {
@@ -22,6 +22,9 @@ module.exports = {
         return repository.some(category => 
             category.some(alias => alias === variant)
         )
+    },
+    get(variant) {
+        return  repository.find(matchCategory.bind(null, oldVariant))
     },
     mapKeyToAliases(targetKey) {
         const matchingCategory = repository.find(category => category.key === targetKey)
