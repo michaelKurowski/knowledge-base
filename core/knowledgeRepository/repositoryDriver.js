@@ -13,24 +13,6 @@ function removeCategory(targetKey) {
     notesRepository.removeCategoryFromEntries(targetKey)
 }
 
-function queryNotes(phrase) {
-    return notesRepository.fuzzyFind(assignMatchScoreToNote(phrase))
-}
-
-function assignMatchScoreToNote(phraseToMatchAgainst) {
-    return note => {
-        const stringListOfCategoriesForms = note.categories.map(categoryKey => 
-            [categoryKey, ...categoriesRepository.get(categoryKey)].join(' '))
-        const stringListOfTags = note.tags.join(' ')
-        const fullString = `${note.content} ${stringListOfCategoriesForms} ${stringListOfTags}`
-        const score = stringSimiliarity(fullString, phraseToMatchAgainst)
-        return {
-            note,
-            score
-        }
-    }
-}
-
 function getCategories() {
     return categoriesRepository.getAll()
 }
@@ -41,7 +23,6 @@ function getNotes() {
 
 module.exports = {
     removeCategory,
-    queryNotes,
     load,
     getCategories,
     getNotes
