@@ -8,9 +8,9 @@ const sendToRouter = require('./core/sendToRouter')
 const CATEGORIES_REPOSITORY_PATH = './categories.json'
 const NOTES_REPOSITORY_PATH = './notes.json'
 
+//CLI HANDLING
 const categories = loadDataFromRepository(CATEGORIES_REPOSITORY_PATH)
 const notes = loadDataFromRepository(NOTES_REPOSITORY_PATH)
-
 
 categories.forEach(categoriesRepository.add.bind(categoriesRepository))
 notes.forEach(notesRepository.add.bind(categoriesRepository))
