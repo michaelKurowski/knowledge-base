@@ -2,7 +2,7 @@ const fs = require('fs')
 
 const categoriesRepository = require('./core/knowledgeRepository/categoriesRepository')
 const notesRepository = require('./core/knowledgeRepository/notesRepository')
-const mapArgvToRoute = require('./core/mapArgvToRoute')
+const mapArgvToAction = require('./core/mapArgvToAction')
 const sendToRouter = require('./core/sendToRouter')
 
 const CATEGORIES_REPOSITORY_PATH = './categories.json'
@@ -15,7 +15,7 @@ const notes = loadDataFromRepository(NOTES_REPOSITORY_PATH)
 categories.forEach(categoriesRepository.add)
 notes.forEach(notesRepository.add)
 
-const actionToBePerformed = mapArgvToRoute(process.argv)
+const actionToBePerformed = mapArgvToAction(process.argv)
 
 sendToRouter(actionToBePerformed)
     .then(saveRepositories)
