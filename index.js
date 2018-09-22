@@ -35,7 +35,7 @@ function loadDataFromRepository(path) {
     try {
         return require(path)
     } catch (err) {
-        handleRepositoryLoadingError(err)
+        return handleRepositoryLoadingError(err)
     }
 }
 
