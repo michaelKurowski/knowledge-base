@@ -1,0 +1,62 @@
+[
+    {
+        "id": 0,
+        "content": "https://coolTuts/promises-in-js",
+        "categories": ["JavaScript", "Links", "Tutorials", "Videos"],
+        "tags": ["promises", "async", "asynchronous"]
+    },
+    {
+        "id": 2,
+        "content": "https://coolTuts/promises-in-ts",
+        "categories": ["TypeScript", "Links", "Tutorials", "Videos"],
+        "tags": ["promises", "async", "asynchronous"]
+    },
+    {
+        "id": 3,
+        "content": "You can overload methods in TS",
+        "categories": ["TypeScript"],
+        "tags": ["methods", "overloading"]
+    },
+    {
+        "id": 4,
+        "content": "EcmaScript feature acceptance process has 4 stages.",
+        "categories": ["JavaScript"],
+        "tags": ["stages", "ecma", "process"]
+    },
+    {
+        "id": 5,
+        "content": "You can use traps together with Proxy objects.",
+        "categories": ["JavaScript"],
+        "tags": ["proxy", "traps"]
+    },
+    {
+        "id": 6,
+        "content": "https://coolTuts/basic-navigation-in-vim",
+        "categories": ["Vim"],
+        "tags": ["basic", "navigation"]
+    },
+    {
+        "id": 7,
+        "content": "You can use :earlier 10s to go back 10s in vim",
+        "categories": ["Vim"],
+        "tags": ["vim", "timemachine", "earlier", "go", "back", "in", "time"]
+    },
+    {
+        "id": 8,
+        "content": "Weak references don't protect garbage collector from cleaning a variable.",
+        "categories": ["JavaScript"],
+        "tags": ["weak", "references", "garbage", "collector"]
+    },
+    {
+        "id": 9,
+        "content": "WeakSets and WeakMaps are not iterable.",
+        "categories": ["JavaScript"],
+        "tags": ["weakset", "weakmap", "iterable"]
+    },
+    {
+        "id": 10,
+        "content": "Symbol.iterator can be used to access objetc's iterator.",
+        "categories": ["JavaScript"],
+        "tags": ["symbol.iterator", "symbol", "iterator", "iterable"]
+    }
+]

@@ -27,5 +27,12 @@
   "bugs": {
     "url": "https://github.com/michaelKurowski/knowledge-base/issues"
   },
-  "homepage": "https://github.com/michaelKurowski/knowledge-base#readme"
+  "homepage": "https://github.com/michaelKurowski/knowledge-base#readme",
+  "dependencies": {
+    "string-similarity": "^1.2.2"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0",
+    "sinon": "^6.3.4"
+  }
 }
