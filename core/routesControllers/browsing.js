@@ -1,7 +1,7 @@
 const ROUTES = require('../routes')
 const notesRepository = require('../knowledgeRepository/notesRepository')
 const categoriesRepository = require('../knowledgeRepository/categoriesRepository')
-const matchScoreCalculator = require('../knowledgeRepository/matchScoreCalculator')
+const matchScoreCalculator = require('./utils/matchScoreCalculator')
 
 module.exports = {
     async [ROUTES.QUERY](phrase) {

@@ -1,5 +1,5 @@
 const stringSimiliary = require('string-similarity')
-const categoriesRepository = require('./categoriesRepository')
+const categoriesRepository = require('../../knowledgeRepository/categoriesRepository')
 
 function calculateForEntry(phrase, entry) {
     const scoreFromCategories = calculateScoreForCategories(entry, phrase)
