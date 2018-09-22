@@ -30,6 +30,20 @@ describe('E2E: Browsing', () => {
     })
 
     describe('Querrying', () => {
+        it('throws when no input was provided', () => {
 
+        })
+
+        it('throws when spaces were provided as input', () => {
+
+        })
+
+        it('shows results when no notes match the criteria', () => {
+
+        })
+
+        it('shows no results when no notes match the criteria', () => {
+
+        })
     })
 })
