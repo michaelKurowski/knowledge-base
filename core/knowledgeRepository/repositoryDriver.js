@@ -1,7 +1,7 @@
-const stringSimiliarity = require('string-similarity')
 
 const categoriesRepository = require('./categoriesRepository')
 const notesRepository = require('./notesRepository')
+const matchScoreCalculator = require('./matchScoreCalculator')
 
 function load({categories, notes}) {
     categories.forEach(categoriesRepository.add)

@@ -29,7 +29,9 @@ module.exports = {
     fuzzyFind(callback) {
         const listOfResults = repository.map(callback)
         const meaningfulResults = listOfResults.filter(result => result.score > 0)
-        return meaningfulResults.sort((resultA, resultB) => resultB.score - resultA.score)
+        console.log('meaningful score', listOfResults)
+        const sortedResults = meaningfulResults.sort((resultA, resultB) => resultB.score - resultA.score)
+        return sortedResults.map(result => result.note)
     }
 }
 

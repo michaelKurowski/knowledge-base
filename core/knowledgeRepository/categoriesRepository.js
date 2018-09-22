@@ -24,7 +24,7 @@ module.exports = {
         )
     },
     get(variant) {
-        return  repository.find(matchCategory.bind(null, oldVariant))
+        return  repository.find(matchCategory.bind(null, variant))
     },
     mapKeyToAliases(targetKey) {
         const matchingCategory = repository.find(category => category.key === targetKey)
