@@ -12,8 +12,8 @@ const categories = loadDataFromRepository(CATEGORIES_REPOSITORY_PATH)
 const notes = loadDataFromRepository(NOTES_REPOSITORY_PATH)
 
 
-categories.forEach(categoriesRepository.add)
-notes.forEach(notesRepository.add)
+categories.forEach(categoriesRepository.add.bind(categoriesRepository))
+notes.forEach(notesRepository.add.bind(categoriesRepository))
 
 const actionToBePerformed = mapArgvToAction(process.argv)
 

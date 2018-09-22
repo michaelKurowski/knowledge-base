@@ -4,8 +4,10 @@ module.exports = {
     getAll() {
         return repository
     },
-    add(categoryAliases) {//TODO add check for already existing category
-        repository.push(categoryAliases)
+    add(categoryVariants) {//TODO add check for already existing category
+        const areSomeVariantsAlreadyInUse = categoryVariants.some(this.has)
+        if (areSomeVariantsAlreadyInUse) throw `Some of proposed category variants are already in use.`
+        repository.push(categoryVariants)
     },
     edit(oldVariant, newVariants) {
         const relevelantCategory = repository.find(matchCategory.bind(null, oldVariant))
