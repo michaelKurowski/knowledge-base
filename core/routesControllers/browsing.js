@@ -2,6 +2,7 @@ const ROUTES = require('../routes')
 const notesRepository = require('../knowledgeRepository/notesRepository')
 const categoriesRepository = require('../knowledgeRepository/categoriesRepository')
 const matchScoreCalculator = require('./utils/matchScoreCalculator')
+const repositoriesUtils = require('./utils/repositoriesUtils')
 
 module.exports = {
     async [ROUTES.QUERY](phrase) {
@@ -9,12 +10,8 @@ module.exports = {
         printResults(results)
     },
     async [ROUTES.LIST_BY_CATEGORY](categoryQuery) {
-        const queryVariants = categoriesRepository.get(categoryQuery[0])
-        const notesMatchingCriteria = notesRepository.filter(note => 
-            note.categories.some(categoryVariant => 
-                queryVariants.find(queryVariant => categoryVariant === queryVariant)
-            )
-        )
+        const notesMatchingCriteria =
+            repositoriesUtils.getNoteByCategory(categoriesRepository, notesRepository, categoryQuery[0])
         printResults(notesMatchingCriteria)
     }
 }

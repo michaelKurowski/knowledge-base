@@ -31,9 +31,7 @@ module.exports = {
         repository.splice(targetIndex, COUNT_OF_CATEGORIES_TO_BE_DELETED)
     },
     has(variant) {
-        return repository.some(category => 
-            category.some(alias => alias === variant)
-        )
+        return repository.some(matchCategory.bind(null, variant))
     },
     get(variant) {
         return  repository.find(matchCategory.bind(null, variant))

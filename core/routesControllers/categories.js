@@ -1,6 +1,9 @@
 const ROUTES = require('../routes')
 const categoriesRepository = require('../knowledgeRepository/categoriesRepository')
+const notesRepository = require('../knowledgeRepository/notesRepository')
 const createQuestion = require('./utils/createQuestion')
+const repositoriesUtils = require('./utils/repositoriesUtils')
+
 
 module.exports = {
     async [ROUTES.ADD_CATEGORY](categoryAliasesList) {
@@ -17,6 +20,9 @@ module.exports = {
         catch (err) { throw `Edition unsuccessful, reason: ${err}` }
     },
     async [ROUTES.DELETE_CATEGORY](targetKey) {
-        categoriesRepository.remove(targetKey[0])
+        const category = categoriesRepository.get(targetKey[0])
+        if (!category) throw `No "${category}" category found.`
+        notesRepository.removeCategoryFromNotes(category[0])
+        categoriesRepository.remove(category[0])
     }
 }

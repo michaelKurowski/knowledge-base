@@ -18,12 +18,12 @@ module.exports = {
         const targetIndex = repository.findIndex(note => note.id === id)
         repository.splice(targetIndex, COUNT_OF_NOTES_TO_BE_DELETED)
     },
-    removeCategoryFromNotes(keywordToRemove) {
+    removeCategoryFromNotes(categoryHead) {
         repository = repository.map(note => {
-            note.keywords = note.keywords.filter(keyword => keyword !== keywordToRemove)
+            note.categories = note.categories.filter(keyword => keyword !== categoryHead)
             return note
         })
-        removeNotesWithNoKeywords()
+        removeNotesWithNoCategories()
     },
     filter(callback) {
         return repository.filter(callback)
@@ -36,6 +36,6 @@ module.exports = {
     }
 }
 
-function removeNotesWithNoKeywords() {
-    repository = repository.filter(note => note.keyword.length === 0)
+function removeNotesWithNoCategories() {
+    repository = repository.filter(note => note.categories.length !== 0)
 }

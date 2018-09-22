@@ -17,10 +17,10 @@ module.exports = {
         const areAllEnlistingCategoriesExisting = categoriesList.every(categoriesRepository.has) 
 
         if (!areAllEnlistingCategoriesExisting) throw `Some of the enlisted categories are not existing`
-
+        const categoriesHeads = categoriesList.map(mapCategoryToHeadsOfVariants)
         const tagsList = tagsString.split(' ')
 
-        notesRepository.add({ content: noteContentString, tags: tagsList, categories: categoriesList })
+        notesRepository.add({ content: noteContentString, tags: tagsList, categories: categoriesHeads })
         return
     },
     async [ROUTES.EDIT_NOTE](noteIdString) {
@@ -41,7 +41,7 @@ module.exports = {
        
         const newNote = {}
         
-        if (newCategoriesString) newNote.categories = newCategoriesList
+        if (newCategoriesString) newNote.categories = newCategoriesList.map(mapCategoryToHeadsOfVariants)
         if (newContent) newNote.content = newContent
         if (newTagsString) newNote.tags = newTagsList
         try { notesRepository.edit(parseInt(noteIdString), newNote) }
@@ -50,4 +50,8 @@ module.exports = {
     async [ROUTES.DELETE_NOTE](targetKey) {
         notesRepository.remove(parseInt(targetKey[0]))
     }
+}
+
+function mapCategoryToHeadsOfVariants(category) {
+    return categoriesRepository.get(category)[0]
 }
