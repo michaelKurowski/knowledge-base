@@ -1,4 +1,4 @@
-const flagsToRoutesMap = require('./flagsToRoutesMap')
+const flagsToRoutesMap = require('./core/flagsToRoutesMap')
 
 const FLAG_OFFSET = 2
 const ACTION_PAYLOAD_OFFSET = 3

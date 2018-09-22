@@ -1,10 +1,10 @@
 const bootstrapRepositories = require('./bootstrapRepositories')
 const saveRepositories = require('./saveRepositories')
-const mapArgvToAction = require('./core/mapArgvToAction')
+const convertArgvToAction = require('./convertArgvToAction')
 const sendToRouter = require('./core/sendToRouter')
 
 bootstrapRepositories()
-const actionToBePerformed = mapArgvToAction(process.argv)
+const actionToBePerformed = convertArgvToAction(process.argv)
 
 sendToRouter(actionToBePerformed)
     .then(saveRepositories)
